@@ -1,0 +1,16 @@
+[package]
+name = "Ducky_Studio"
+version = "0.0.1"
+edition = "2024"
+
+[dependencies]
+eframe = "0.27"
+rdev = "0.5"
+rfd = "0.14"
+chrono = "0.4"
+rand = "0.8"
+base64 = "0.22"
+enigo = "0.1.2"
+
+[build-dependencies]
+winres = "0.1"
