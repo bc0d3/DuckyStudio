@@ -11,7 +11,6 @@ use rand::Rng;
 use base64::{Engine as _, engine::general_purpose};
 use enigo::{Enigo, KeyboardControllable};
 
-// --- Configuración Global ---
 const MIN_DELAY_MS: u128 = 250;
 
 struct PayloadTemplate {
@@ -34,16 +33,33 @@ const TEMPLATES: &[PayloadTemplate] = &[
     },
 ];
 
+fn load_icon() -> eframe::egui::IconData {
+    let (icon_rgba, icon_width, icon_height) = {
+        let image = image::load_from_memory(include_bytes!("../icon.ico"))
+            .expect("Fallo al cargar el icono")
+            .into_rgba8();
+        let (width, height) = image.dimensions();
+        let rgba = image.into_raw();
+        (rgba, width, height)
+    };
+    
+    eframe::egui::IconData {
+        rgba: icon_rgba,
+        width: icon_width,
+        height: icon_height,
+    }
+}
+
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
-        viewport: egui::ViewportBuilder::default().with_inner_size([950.0, 700.0]),
+        viewport: egui::ViewportBuilder::default()
+            .with_inner_size([950.0, 700.0])
+            .with_icon(load_icon()), 
         ..Default::default()
     };
     
-    // Canal para comunicación Thread -> GUI
     let (tx, rx) = channel();
 
-    // Hilo de Grabación (rdev bloquea, debe ir aparte)
     thread::spawn(move || {
         listen(move |event| {
             let _ = tx.send(event);

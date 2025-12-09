@@ -1,6 +1,6 @@
 [package]
 name = "ducky_studio"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2024"
 
 [dependencies]
@@ -11,6 +11,7 @@ chrono = "0.4"
 rand = "0.8"
 base64 = "0.22"
 enigo = "0.1.2"
+image = { version = "0.24", features = ["ico", "png"] }
 
 [build-dependencies]
 winres = "0.1"
