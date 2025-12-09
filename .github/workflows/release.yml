@@ -21,11 +21,11 @@ jobs:
           - name: Windows
             os: windows-latest
             target: x86_64-pc-windows-msvc
-            binary_name: winducky_studio.exe
+            binary_name: DuckyStudio.exe       # Nombre final para descargar
           - name: Linux
             os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            binary_name: winducky_studio
+            binary_name: DuckyStudio           # Nombre final para descargar
 
     steps:
       - name: Checkout Repository
@@ -44,14 +44,14 @@ jobs:
 
       - name: Build Binary
         run: cargo build --release --verbose --target ${{ matrix.platform.target }}
-
+      
       - name: Rename Binary (Windows)
         if: matrix.platform.os == 'windows-latest'
-        run: move target/${{ matrix.platform.target }}/release/winducky_studio.exe ${{ matrix.platform.binary_name }}
+        run: move target/${{ matrix.platform.target }}/release/ducky_studio.exe ${{ matrix.platform.binary_name }}
 
       - name: Rename Binary (Linux)
         if: matrix.platform.os == 'ubuntu-latest'
-        run: mv target/${{ matrix.platform.target }}/release/winducky_studio ${{ matrix.platform.binary_name }}
+        run: mv target/${{ matrix.platform.target }}/release/ducky_studio ${{ matrix.platform.binary_name }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
