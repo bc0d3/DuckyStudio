@@ -51,7 +51,7 @@ fn main() -> eframe::Result<()> {
     });
 
     eframe::run_native(
-        "DuckyStudio v0.0.1",
+        "DuckyStudio v0.0.2",
         options,
         Box::new(|_cc| Box::new(DuckyApp::new(rx))),
     )
